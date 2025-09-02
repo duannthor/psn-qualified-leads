@@ -1,0 +1,19 @@
+[project]
+name = "psn-scraper"
+version = "0.1.0"
+description = "Scrape PSN played games and store to Neo4j"
+requires-python = ">=3.12"
+
+
+# Core runtime deps
+dependencies = [
+"selenium>=4.21.0",
+"webdriver-manager>=4.0.2",
+"neo4j>=5.19.0",
+"python-dotenv>=1.0.1",
+"tenacity>=9.0.0"
+]
+
+
+[tool.uv]
+# Optional: lockfile behavior, indexes, etc. Defaults are fine for now.
