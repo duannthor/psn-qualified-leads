@@ -21,7 +21,7 @@ COPY pyproject.toml ./
 
 
 # Pre-resolve & cache wheels
-RUN uv sync --frozen --no-install-project || true
+RUN uv sync --no-dev
 
 
 # Copy source code

@@ -11,7 +11,9 @@ services:
     depends_on:
       - selenium
       - neo4j
+    # command: uv run python -m src.scrape_psn
     command: uv run python -m src.scrape_psn
+
 
   selenium:
     image: selenium/standalone-chromium:latest
@@ -21,15 +23,15 @@ services:
       - SE_NODE_SESSION_TIMEOUT=120
     ports:
       - "4444:4444"   # WebDriver endpoint + Grid UI
-      #- "7900:7900"   # noVNC for manual control (password: secret)
+      - "7900:7900"   # noVNC for manual control (password: secret)
 
   neo4j:
     image: neo4j:5
     environment:
       NEO4J_AUTH: "${NEO4J_USERNAME:-neo4j}/${NEO4J_PASSWORD:-neo4j}"
-      NEO4J_dbms_memory_heap_initial__size: 512m
-      NEO4J_dbms_memory_heap_max__size: 512m
-      NEO4J_dbms_memory_pagecache_size: 256m
+      NEO4j_server_memory_heap_initial__size: 512m
+      NEO4j_server_memory_heap_max__size: 512m
+      NEO4J_server_memory_pagecache_size: 256m
     ports:
       - "7474:7474"   # HTTP UI
       - "7687:7687"   # Bolt

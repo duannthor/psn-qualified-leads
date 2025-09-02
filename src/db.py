@@ -11,21 +11,21 @@ _driver = None
 
 
 def get_driver():
-global _driver
-if _driver is None:
-_driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USERNAME, NEO4J_PASSWORD))
-return _driver
+    global _driver
+    if _driver is None:
+        _driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USERNAME, NEO4J_PASSWORD))
+    return _driver
 
 
 def upsert_game(tx, title: str):
-tx.run(
-"MERGE (g:Game {title: $title})\n"
-"ON CREATE SET g.firstSeen = timestamp()\n"
-"SET g.lastSeen = timestamp()",
-title=title,
-)
+    tx.run(
+        "MERGE (g:Game {title: $title})\n"
+        "ON CREATE SET g.firstSeen = timestamp()\n"
+        "SET g.lastSeen = timestamp()",
+    title=title,
+    )
 
 
 def record_played_game(title: str):
-with get_driver().session() as session:
-session.execute_write(upsert_game, title)
+    with get_driver().session() as session:
+        session.execute_write(upsert_game, title)
